@@ -1,0 +1,26 @@
+
+硬实力部分
+1. 框架: .Net  Core || Aspnet Core(优先)
+2. 框架: .Net Framework, ASP.Net MVC、WebApi
+3. 框架: Entity framework、LINQ、lambda、dapper
+4. 前端: JavaScript、html、css、XML、XSLT，JQuery、JSON、AJAX
+5. 前端: VueJs、ReactJs、AngularJs
+6. 缓存: MemCached、MongoDB、Redis、RabbitMQ
+7. 数据库: 编写存储过程及T-Sql编程，灵活运用SQL事务和触发器,熟悉mysql或SqlServer.
+
+8.其他: 微服务架构、Service Fabric
+9.设计: 熟悉设计模式，领域驱动
+10.工具:
+
+
+
+软实力部分
+1.较强的业务解析能力与分析能力，良好的代码编写习惯，熟悉软件开发规范.
+2.学习能力强.
+3.有较强的独立工作能力和团队协作精神.
+4.极强的责任心.
+5.工作踏实、勤恳.
+6.工作有计划,处理问题谨慎.
+7.工作认真，学习能力强，责任心和进取心强，能承受工作压力
+
+
