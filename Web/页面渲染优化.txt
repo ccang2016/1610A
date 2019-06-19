@@ -47,7 +47,7 @@
  服务端：方式比较多，可以从架构上说（这个内容太多了，什么负载均衡了，什么缓存了，什么主从了），但是今天主要讨论语言层面。
 　　　　我们可以使用逐步返回内容的方式，输送数据给浏览器，如我们可以使用php的flush，把整个head部分，半个body加一部分div返回给浏览器，进行渲染,然后把其他部分逐步输送到浏览器。
 　　　　我们可以在服务端使用多线程或多进程的方式并发去进行数据处理。如php常见的
-复制代码
+
 do {
 　　$mrc = curl_multi_exec($mh, $active);
 }while($mrc==CURLM_CALL_MULTI_PERFORM);
@@ -58,10 +58,10 @@ while ($active && $mrc == CURLM_OK){
 　　　　}while($mrc==CURLM_CALL_MULTI_PERFORM);
 　　}
 }
-复制代码
+
 或者
 
-复制代码
+
 <?php
 while (count($sockets)) {
     $read = $write = $sockets;
@@ -88,7 +88,7 @@ while (count($sockets)) {
         break;
     }   
 }
-复制代码
+
  
 
 JavaScript：
@@ -124,20 +124,20 @@ CSS:
 了解过程后，我们可以看出可以从两方面优化我们的css代码：1，定义的css样式规则条数越少越好，所以赶紧删除css文件中不必要的样式定义；2，优化每条规则的选择符书写方式，尽量让css引擎一看就知道这个规则是否需要应用到当前这个元素上，让引擎少走不必要的弯路。
 如以下几种效率不高的css书写方式：
 a, 用通配符作为关键选择符（关键选择符指的是每条规则最右侧的选择符）
-复制代码代码如下:
+代码如下:
 body * {...} 
 .hide-scrollbars * {...} 
 b, 用标签做关键选择符
-复制代码代码如下:
+代码如下:
 ul li a {...}
 #footer h3 {...}
 * html #atticPromo ul li a {...}
 c, 画蛇添足的写法
-复制代码代码如下:
+代码如下:
 ul#top_blue_nav {...}
 form#UserLogin {...} 
 d, 给非连接标签添加 :hover 伪类，这会对用了strict doctype的页面在IE7和IE8下变的很慢。
-复制代码代码如下:
+代码如下:
 h3:hover {...}
 .foo:hover {...}
 #foo:hover {...}
@@ -147,7 +147,7 @@ a, 避免使用通配符；
 b, 让css引擎快速辨别该规则是否适用于当前元素：多用id或class选择符，少用标签选择符；
 c, 不要画蛇添足把id和class或标签和class等连着写；
 d, 尽量避免使用后代选择符，去除不必要的祖先元素，可以考虑使用class选择符来替换后代选择符；
-复制代码代码如下:
+代码如下:
 /*给无序和有序的li定义不同颜色，你可能会这样写：*/
 ul li {color: blue;}
 ol li {color: red;}
