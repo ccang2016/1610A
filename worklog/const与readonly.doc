@@ -1,0 +1,7 @@
+const与readonly的区别
+
+
+1、const是编译时常量，只能在定义时赋值
+2、readonly是运行时常量，除了在定义时赋值外，还可以在构造函数中赋值
+3、const只能应用在基元数据类型，而readonly可以应用除基元类型外的所有类型
+4、const能够在方法中定义，而readonly不可以
