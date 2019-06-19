@@ -35,28 +35,25 @@ public class ConstTest
             SUM = 100;
 
         }
-
     }
-
  
 
 2、const 定义的字段属于类访问，类似于静态变量，只能通过类名来访问
 
-//只能通过类名访问
+  //只能通过类名访问
 
   Console.WriteLine(ConstTest.SUM);
 
   ConstTest t = new ConstTest();
 
-    //错误！无法通过实例对象访问
+  //错误！无法通过实例对象访问
 
 Console.WriteLine(t.SUM);
-
  
 
 3、const 只能定义值类型与字符串（基元类型），若定义引用类型的变量，只能初始化为null
 
-/// <summary>
+        /// <summary>
 
         /// const定义的变量
 
