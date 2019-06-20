@@ -11,27 +11,16 @@ public void BubbleSort(int[] list) {
                 list[j] = temp;
             }
         }
-      
-        printAll(list);
     }
 }
 
-
-
 // 对 bubbleSort 的优化算法
-
-public void bubbleSort_2(int[] list) {
-
+public void BubbleSort_2(int[] list) {
     int temp = 0; // 用来交换的临时数
-
-    boolean bChange = false; // 交换标志
-
- 
-
+    bool change = false; // 交换标志
     // 要遍历的次数
-
     for (int i = 0; i < list.length - 1; i++) {
-        bChange = false;
+        change = false;
         // 从后向前依次的比较相邻两个数的大小，遍历一次后，把数组中第i小的数放在第i个位置上
         for (int j = list.length - 1; j > i; j--) {
             // 比较相邻的元素，如果前面的数大于后面的数，则交换
@@ -39,46 +28,48 @@ public void bubbleSort_2(int[] list) {
                 temp = list[j - 1];
                 list[j - 1] = list[j];
                 list[j] = temp;
-                bChange = true;
+                change = true;
             }
         }
 
         // 如果标志为false，说明本轮遍历没有交换，已经是有序数列，可以结束排序
-        if (false == bChange)
-            break;
+        if (!change)
+		{
+			break;
+		}
     }
 }
 
 
 
-	//改进冒泡排序
-	public static void GaiJSort(int[] arr)
+//改进冒泡排序
+public static void GaiJSort(int[] arr)
+{
+	int low = 0;
+	int high = arr.Length - 1;
+	while (low < high)
 	{
-		int low = 0;
-		int high = arr.Length - 1;
-		while (low < high)
+		for (int i = low; i < high; i++)
 		{
-			for (int i = low; i < high; i++)
+			if (arr[i] > arr[i + 1])
 			{
-				if (arr[i] > arr[i + 1])
-				{
-					int temp = arr[i];
-					arr[i] = arr[i + 1];
-					arr[i + 1] = temp;
+				int temp = arr[i];
+				arr[i] = arr[i + 1];
+				arr[i + 1] = temp;
 
-				}
 			}
-			high--;
-			for (int j = high; j > low; j--)
-			{
-				if (arr[j] < arr[j - 1])
-				{
-					int temp = arr[j];
-					arr[j] = arr[j - 1];
-					arr[j - 1] = temp;
-				}
-			}
-			low++;
-
 		}
+		high--;
+		for (int j = high; j > low; j--)
+		{
+			if (arr[j] < arr[j - 1])
+			{
+				int temp = arr[j];
+				arr[j] = arr[j - 1];
+				arr[j - 1] = temp;
+			}
+		}
+		low++;
+
 	}
+}
