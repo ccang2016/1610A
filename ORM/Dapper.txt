@@ -1,0 +1,158 @@
+﻿
+Dapper的简介　　
+Dapper是.NET下一个micro的ORM，它和Entity Framework或Nhibnate不同，属于轻量级的，并且是半自动的。
+Dapper只有一个代码文件，完全开源，你可以放在项目里的任何位置，来实现数据到对象的ORM操作，体积小速度快。 
+使用ORM的好处是增、删、改很快，不用自己写sql，因为这都是重复技术含量低的工作，
+还有就是程序中大量的从数据库中读数据然后创建model,并为model字段赋值。这些ORM都可以轻松给你搞定。
+ORM给我们开发带来便利时，性能也是一个让我们不得不考虑的问题。
+一般的ORM性能和直接写原生的sql比都差不少，但是Dapper性能还很错，甚至和DbHelperSQL方式性能高出很多。
+
+Dapper的优势
+Dapper是一个轻型的ORM类。代码就一个SqlMapper.cs文件，编译后体积小。
+Dapper很快。Dapper的速度接近与IDataReader，取列表的数据超过了DataTable。
+Dapper支持多数据库。诸如：Mysql,SqlLite,Mssql系列,Oracle等一系列的数据库。
+Dapper的R支持多表并联的对象。支持一对多 多对多的关系。并且没侵入性，想用就用，不想用就不用，无XML无属性，代码以前怎么写现在还怎么写。
+Dapper原理通过Emit反射IDataReader的序列队列，来快速的得到和产生对象，性能高。
+Dapper支持net2.0及以上版本
+Dapper语法十分简单，并且无须迁就数据库的设计。
+Dapper的性能
+Dapper 的主要特点是性能。以下数据显示对一个数据库执行 SELECT 出 500 条，并把数据映射到对象中需要多长时间。
+
+性能测试分为三个方面：
+
+POCO 序列化框架，支持从数据库获得静态类型的对象。使用原始的 SQL。
+动态序列化框架，支持返回对象的动态列表。
+典型的框架用法。往往不会涉及编写 SQL。
+1. Performance of SELECT mapping over 500 iterations - POCO 序列化
+
+方法
+
+持续时间（毫秒）
+
+备注
+
+Hand coded (using a SqlDataReader)
+
+47
+
+Can be faster
+
+Dapper ExecuteMapperQuery
+
+49
+
+同上
+
+ServiceStack.OrmLite (QueryById)
+
+50
+
+同上
+
+PetaPoco 
+
+52
+
+同上
+
+BLToolkit
+
+80
+
+同上
+
+SubSonic CodingHorror
+
+107
+
+同上
+
+NHibernate SQL
+
+104
+
+同上
+
+Linq 2 SQL ExecuteQuery
+
+181
+
+同上
+
+Entity framework ExecuteStoreQuery
+
+631
+
+同上
+
+2.  Performance of SELECT mapping over 500 iterations - dynamic 序列化
+
+方法
+
+持续时间（毫秒）
+
+备注
+
+Dapper ExecuteMapperQuery (dynamic)
+
+48
+
+ 
+
+Massive
+
+52
+
+ 
+
+Simple.Data
+
+95
+
+ 
+
+3.  Performance of SELECT mapping over 500 iterations - 典型用法
+
+方法
+
+持续时间（毫秒）
+
+备注
+
+Linq 2 SQL CompiledQuery
+
+81
+
+Not super typical involves complex code
+
+NHibernate HQL
+
+118
+
+ 
+
+Linq 2 SQL
+
+559
+
+ 
+
+Entity framework
+
+859
+
+ 
+
+SubSonic ActiveRecord.SingleOrDefault
+
+3619
+
+ 
+
+ 
+
+其他见解：
+
+能很方便地执行数据库 DML 和 DLL 操作。比如，当你执行一个带参数的 SQL 时，SQL 中的变量能与你传递给它的实体或匿名对象中的属性，自定匹配。而我们知道，带参数的 SQL，能提高数据库执行 SQL 的效率。
+能很方便地将数据库检索结果映射为面向对象的对象。从数据库中的检索结果，通常是张二维表，如 DataTable，而应用程序中是实体类，以及实体类的集合，那么 Dapper 能够将 DataTable 自动地映射成为实体类的集合。
+能很方便地书写 SQL 语句。比如，写多个 SQL，用分号分隔。
