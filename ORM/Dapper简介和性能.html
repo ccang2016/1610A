@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0057)https://blog.csdn.net/u014518337/article/details/90054850 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>.login-box{position: fixed;display: none;left: 50%;top: 50%;z-index: 10000;-webkit-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);transform: translate(-50%, -50%);background-color: #fff;}.login-mark{position: fixed;top: 0;left: 0;z-index: 9999;background-color: rgba(0, 0, 0, 0.5);width: 100%;height: 100%;display: none;}</style>
+    
+  
+ <main>
+ <div class="blog-content-box">
+
+  <article class="baidu_pl">
+    <div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog" data-mod="popu_307" data-dsm="post">
+              <link rel="stylesheet" href="./Dapper(一) 简介和性能 - u014518337的博客 - CSDN博客_files/ck_htmledit_views-cd6c485e8b.css">
+                              <link rel="stylesheet" href="./Dapper(一) 简介和性能 - u014518337的博客 - CSDN博客_files/ck_htmledit_views-cd6c485e8b.css">
+          <div class="htmledit_views" id="content_views">
+            <h3><a name="t0"></a><strong>Dapper</strong><strong>的简介</strong><strong>　　</strong></h3>
+
+<p>Dapper是.NET下一个micro的ORM，它和Entity Framework或Nhibnate不同，属于轻量级的，并且是半自动的。Dapper只有一个代码文件，完全开源，你可以放在项目里的任何位置，来实现数据到对象的ORM操作，体积小速度快。 使用ORM的好处是增、删、改很快，不用自己写sql，因为这都是重复技术含量低的工作，还有就是程序中大量的从数据库中读数据然后创建model,并为model字段赋值。这些ORM都可以轻松给你搞定。ORM给我们开发带来便利时，性能也是一个让我们不得不考虑的问题。一般的ORM性能和直接写原生的sql比都差不少，但是Dapper性能还很错，甚至和DbHelperSQL方式性能高出很多。</p>
+
+<h3><a name="t1"></a><strong>Dapper</strong><strong>的优势</strong></h3>
+
+<ol><li>Dapper是一个轻型的ORM类。代码就一个SqlMapper.cs文件，编译后体积小。</li>
+	<li>Dapper很快。Dapper的速度接近与IDataReader，取列表的数据超过了DataTable。</li>
+	<li>Dapper支持多数据库。诸如：Mysql,SqlLite,Mssql系列,Oracle等一系列的数据库。</li>
+	<li>Dapper的R支持多表并联的对象。支持一对多 多对多的关系。并且没侵入性，想用就用，不想用就不用，无XML无属性，代码以前怎么写现在还怎么写。</li>
+	<li>Dapper原理通过Emit反射IDataReader的序列队列，来快速的得到和产生对象，性能高。</li>
+	<li>Dapper支持net2.0及以上版本</li>
+	<li>Dapper语法十分简单，并且无须迁就数据库的设计。</li>
+</ol><h3><a name="t2"></a><strong>Dapper</strong><strong>的性能</strong></h3>
+
+<p>Dapper 的主要特点是性能。以下数据显示对一个数据库执行 SELECT 出 500 条，并把数据映射到对象中需要多长时间。</p>
+
+<p>性能测试分为三个方面：</p>
+
+<ul><li>POCO 序列化框架，支持从数据库获得静态类型的对象。使用原始的 SQL。</li>
+	<li>动态序列化框架，支持返回对象的动态列表。</li>
+	<li>典型的框架用法。往往不会涉及编写 SQL。</li>
+</ul><p><strong>1. Performance of SELECT mapping over 500 iterations - POCO&nbsp;</strong><strong>序列化</strong></p>
+
+<div class="table-box"><table border="1" cellpadding="0" cellspacing="0"><tbody><tr><td style="vertical-align:top;">
+			<p><strong>方法</strong></p>
+			</td>
+			<td style="vertical-align:top;">
+			<p><strong>持续时间（毫秒）</strong></p>
+			</td>
+			<td style="vertical-align:top;">
+			<p><strong>备注</strong></p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>Hand coded (using a SqlDataReader)</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>47</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>Can be faster</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>Dapper ExecuteMapperQuery</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>49</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>同上</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>ServiceStack.OrmLite (QueryById)</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>50</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>同上</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>PetaPoco&nbsp;</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>52</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>同上</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>BLToolkit</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>80</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>同上</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>SubSonic CodingHorror</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>107</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>同上</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>NHibernate SQL</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>104</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>同上</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>Linq 2 SQL ExecuteQuery</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>181</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>同上</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>Entity framework ExecuteStoreQuery</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>631</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>同上</p>
+			</td>
+		</tr></tbody></table></div><p><strong>2.&nbsp; Performance of SELECT mapping over 500 iterations - dynamic&nbsp;</strong><strong>序列化</strong></p>
+
+<div class="table-box"><table border="1" cellpadding="0" cellspacing="0"><tbody><tr><td style="vertical-align:top;">
+			<p><strong>方法</strong></p>
+			</td>
+			<td style="vertical-align:top;">
+			<p><strong>持续时间（毫秒）</strong></p>
+			</td>
+			<td style="vertical-align:top;">
+			<p><strong>备注</strong></p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>Dapper ExecuteMapperQuery (dynamic)</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>48</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>&nbsp;</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>Massive</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>52</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>&nbsp;</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>Simple.Data</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>95</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>&nbsp;</p>
+			</td>
+		</tr></tbody></table></div><p><strong>3.&nbsp; Performance of SELECT mapping over 500 iterations -&nbsp;</strong><strong>典型用法</strong></p>
+
+<div class="table-box"><table border="1" cellpadding="0" cellspacing="0"><tbody><tr><td style="vertical-align:top;">
+			<p><strong>方法</strong></p>
+			</td>
+			<td style="vertical-align:top;">
+			<p><strong>持续时间（毫秒）</strong></p>
+			</td>
+			<td style="vertical-align:top;">
+			<p><strong>备注</strong></p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>Linq 2 SQL CompiledQuery</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>81</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>Not super typical involves complex code</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>NHibernate HQL</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>118</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>&nbsp;</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>Linq 2 SQL</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>559</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>&nbsp;</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>Entity framework</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>859</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>&nbsp;</p>
+			</td>
+		</tr><tr><td style="vertical-align:top;">
+			<p>SubSonic ActiveRecord.SingleOrDefault</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>3619</p>
+			</td>
+			<td style="vertical-align:top;">
+			<p>&nbsp;</p>
+			</td>
+		</tr></tbody></table></div><p>&nbsp;</p>
+
+<p><strong>其他见解：</strong></p>
+
+<ol><li>能很方便地执行数据库 DML 和 DLL 操作。比如，当你执行一个带参数的 SQL 时，SQL 中的变量能与你传递给它的实体或匿名对象中的属性，自定匹配。而我们知道，带参数的 SQL，能提高数据库执行 SQL 的效率。</li>
+	<li>能很方便地将数据库检索结果映射为面向对象的对象。从数据库中的检索结果，通常是张二维表，如 DataTable，而应用程序中是实体类，以及实体类的集合，那么 Dapper 能够将 DataTable 自动地映射成为实体类的集合。</li>
+	<li>能很方便地书写 SQL 语句。比如，写多个 SQL，用分号分隔。</li>
+</ol>          </div>
+    </div>
+  </article>
+</div>
