@@ -1,0 +1,59 @@
+ static void Main(string[] args)
+ {
+     Console.WriteLine("请输入待排序数列(以\",\"分割):");
+     string s = Console.ReadLine();
+     string[] _sArray = s.Split(",".ToCharArray());
+     int _nLength = _sArray.Length;
+     int[] _nArray = new int[_nLength];
+     for (int i = 0; i < _nLength; i++)
+     {
+         _nArray[i] = Convert.ToInt32(_sArray[i]);
+     }
+ 
+     var list = _nArray.ToList();
+     QuickSort(list, 0, _nLength - 1);
+ 
+     foreach (var i in list)
+     {
+          Console.WriteLine(i.ToString());
+     }
+     while (true)
+     {
+         Thread.Sleep(10000);
+     }
+}
+ //获取按枢轴值左右分流后枢轴的位置
+ private static int Division(List<int> list, int left, int right)
+ {
+     while (left < right)
+     {
+         int num = list[left]; //将首元素作为枢轴
+         if (num > list[left + 1])
+         {
+             list[left] = list[left + 1];
+             list[left + 1] = num;
+             left++;
+         }
+         else
+         {
+             int temp = list[right];
+             list[right] = list[left + 1];
+             list[left + 1] = temp;
+             right--;
+         }
+         Console.WriteLine(string.Join(",", list));
+     }
+     Console.WriteLine("--------------\n");
+     return left; //指向的此时枢轴的位置
+ }
+ private static void QuickSort(List<int> list, int left, int right)
+ {
+     if (left < right)
+     {
+         int i = Division(list, left, right);
+         //对枢轴的左边部分进行排序
+         QuickSort(list, i + 1, right);
+         //对枢轴的右边部分进行排序
+         QuickSort(list, left, i - 1);
+     }
+ }   

@@ -1,0 +1,61 @@
+class Program
+    {
+        static void Main(string[] args)
+        {
+            var numbers = new int[]{5,5,6,1,4,7,2,9};
+            var result=InsortSort(numbers);
+        }
+
+        public static int[] InsortSort(int [] numbers)
+        {
+            int temp = 0;
+            for (int i = 0; i < numbers.Length - 1; i++)
+            {
+               if(numbers[i]<=numbers[i+1])
+				{
+					continue;
+				}
+                temp = numbers[i + 1];        //temp保存要向前移动的数字，防止数字被覆盖掉
+                for (int j = i; j >= 0; j--)  //numbers从第i个元素到第0个元素为可能要向后移动的元素
+                {
+                    if (temp <= numbers[j]) 
+					{
+					  numbers[j + 1] = numbers[j];    //numbers[j]需要向后移动一个位置   //numbers[j+1]已经移动过，或者保存在temp中了，所以不会丢失数据
+					}           
+                    else
+                    {
+                        numbers[j +1] = temp;            //j+1是要插入的位置
+                        break;
+                    }
+                    if (j == 0)                          //值最小的情况
+                        numbers[0] = temp;
+                }
+            }
+            return numbers;
+        }
+    }
+
+
+
+
+	private int[] Insertion(int[] list) //插入排序 传入数组 3, 6, 2, 1, 9, 5, 4, 7 
+        {
+            for(int i =1;i<list.Length;i++)  //首选取出第一个数（3）作为一个有序的数组，然后遍历传入数组"3"之后的每一个数
+            {
+                int j ;
+                int key = list[i];
+                for (j = i - 1; j >= 0; j--) //因为取出来的数是一个有序数组，排序是从小往大递增的，所以插入新的数字的时候只需要
+                {
+                    if(list[j] < key)       //==>倒序比较，假如比数组的最后一个数字大，前面的就不需要再比较了，这里就是最先比较的
+                    {
+                        break;              //最大数就是list[j]
+                    }
+                    else
+                    {
+                        list[j + 1] = list[j]; //假如待插入数字不比最大的一个数字大，就依次跟前面的数字比较，同时把比较过的数字
+                    }                          //位置依次右移
+                }
+                list[j + 1] = key;              //最后找到合适的位置插入数组
+            }
+            return list;
+        }
