@@ -50,7 +50,6 @@ Console.WriteLine(t.SUM);
         /// </summary>
         public const Person person = new Person();
  
-
 readonly
 
 readonly是只读的意思，其定义的变量在运行期间也只能读取不能更改，但与const有以下不同
